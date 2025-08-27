@@ -1,0 +1,5 @@
+defaults:
+  - dataset: dataset.yaml
+  - preprocessing: preprocessing.yaml
+  - model: model.yaml
+  - evaluation: evaluation.yaml
