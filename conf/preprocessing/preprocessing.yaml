@@ -1,3 +1,30 @@
 steps:
 - impute:
     strategy: "mean"
+features:
+    y: stress_level
+    X:
+    - avg_working_hours_per_day
+    - work_from
+    - work_pressure
+    - manager_support
+    - sleeping_habit
+    - exercise_habit
+    - job_satisfaction
+    - work_life_balance
+    - social_person
+    - lives_with_family
+    - working_state
+    numerical_features:
+    - avg_working_hours_per_day
+    - work_pressure
+    - manager_support
+    - sleeping_habit
+    - exercise_habit
+    - job_satisfaction
+    - work_life_balance
+    categorical_features:
+    - work_from
+    - social_person
+    - lives_with_family
+    - working_state

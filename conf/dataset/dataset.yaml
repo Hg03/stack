@@ -1,3 +1,18 @@
 path:
-  raw: data/path/to/raw/data
-  processed: data/path/to/processed/data
+  raw: data/raw/raw.csv
+  processed: data/processed/processed.csv
+
+features:
+  to_keep:
+    - avg_working_hours_per_day
+    - work_from
+    - work_pressure
+    - manager_support
+    - sleeping_habit
+    - exercise_habit
+    - job_satisfaction
+    - work_life_balance
+    - social_person
+    - lives_with_family
+    - working_state
+    - stress_level
