@@ -139,7 +139,6 @@ celerybeat.pid
 .envrc
 .venv
 outputs/
-data/processed/*.csv
 env/
 venv/
 ENV/
