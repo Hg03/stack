@@ -1,3 +1,4 @@
 path:
-  models: models/
+  preprocessor: models/preprocessor.joblib
+  models: models/models.joblib
   mlruns: mlruns/

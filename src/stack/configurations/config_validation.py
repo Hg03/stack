@@ -8,7 +8,9 @@ class DatasetConfig:
 
 @dataclass
 class PreprocessingConfig:
-    steps: List[str] = field(default_factory=list)
+    random_state: int
+    test_size: float
+    steps: dict[str, dict[str]] = field(default_factory=dict)
     features: dict[str, dict] = field(default_factory=dict)
 
 @dataclass

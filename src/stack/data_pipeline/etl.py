@@ -1,6 +1,10 @@
 import polars as pl
+import joblib
+import os
 from omegaconf import DictConfig
+from sklearn.model_selection import train_test_split
 from stack.data_pipeline.hopsworks_implementation import init_fs
+from stack.data_pipeline.preprocess_implementation import get_preprocessor, merge_dfs
 
 
 class DataPipeline:
@@ -16,7 +20,13 @@ class DataPipeline:
     def transform(self):
         print("Transforming data...")
         X, y = self.raw_data.select(pl.col(self.config.preprocessing.features.X)), self.raw_data.select(pl.col(self.config.preprocessing.features.y))
-        
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=self.config.preprocessing.test_size, random_state=self.config.preprocessing.random_state, stratify=y)
+        preprocessor = get_preprocessor(self.config)
+        self.X_train = pl.DataFrame(preprocessor.fit_transform(self.X_train.to_pandas()))
+        self.X_test = pl.DataFrame(preprocessor.transform(self.X_test.to_pandas()))
+        merge_dfs(self.X_train, self.X_test, self.y_train, self.y_test).write_csv(self.config.dataset.path.processed)
+        joblib.dump(preprocessor, self.config.model.path.preprocessor)
+
     def load(self):
         print("Loading data...")
     def run(self):
