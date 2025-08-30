@@ -32,4 +32,5 @@ class MainConfig:
     preprocessing: PreprocessingConfig
     model: ModelConfig
     evaluation: EvaluationConfig
+    pipeline: str
 

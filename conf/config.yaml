@@ -3,3 +3,4 @@ defaults:
   - preprocessing: preprocessing.yaml
   - model: model.yaml
   - evaluation: evaluation.yaml
+  - pipeline: pipeline.yaml

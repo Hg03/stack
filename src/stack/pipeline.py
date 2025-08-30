@@ -7,18 +7,26 @@ import hydra
 class StackPipeline:
     def __init__(self, config: DictConfig) -> None:
         self.config = OmegaConf.structured(MainConfig(**config))
-        self.fs = get_fs()
+        self.fs = None #get_fs()
         self.data_pipeline = DataPipeline(self.config, self.fs)
     def execute(self):
-        print("Starting the data pipeline...")
-        data_pipeline_status = self.data_pipeline.run()
-        return True
+        if self.config.pipeline.type == "data":
+            print("Starting the data pipeline...")
+            data_pipeline_status = self.data_pipeline.run()
+            return True
+        elif self.config.pipeline.type == "train":
+            pass
+        else:
+            print("Starting the data pipeline...")
+            data_pipeline_status = self.data_pipeline.run()
+        
 
 @hydra.main(config_path="../../conf", config_name="config", version_base=None)
 def main(cfg: DictConfig) -> None:
+    if cfg.pipeline.type not in ('data', 'train', 'full'):
+        raise TypeError("Invalid Pipeline Type")
     pipeline = StackPipeline(cfg)
     success = pipeline.execute()
-    
     if success:
         print("Pipeline completed successfully!")
     else:
