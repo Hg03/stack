@@ -2,21 +2,25 @@ from dataclasses import dataclass, field
 from typing import List
 
 @dataclass
-class DatasetConfig:
+class PathConfig:
     path: dict[str, str]
-    features: dict[str, List[str]] = field(default_factory=dict)
+
+@dataclass
+class DatasetConfig:
+    path: PathConfig
+    features: dict[str, List[str]]
 
 @dataclass
 class PreprocessingConfig:
     random_state: int
     test_size: float
-    feature_store: dict[str, any]
-    steps: dict[str, dict[str]] = field(default_factory=dict)
-    features: dict[str, dict] = field(default_factory=dict)
+    feature_store: dict[str, list[str] | str]
+    steps: dict[str, dict[str]]
+    features: dict[str, list[str] | str]
 
 @dataclass
 class ModelConfig:
-    path: dict[str, str]
+    path: dict[str, str] = PathConfig
 
 @dataclass
 class EvaluationConfig:

@@ -879,7 +879,7 @@ wheels = [
 
 [[package]]
 name = "hopsworks"
-version = "4.2.2"
+version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "avro" },
@@ -902,9 +902,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "tzlocal" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ff/ce/62afb5f5233e78d4486747c76457dccb10b3f6150f8e5096ed1b8b190ab0/hopsworks-4.2.2.tar.gz", hash = "sha256:f865eb41941fe1f5b94c49a2cc8d133411d4540d0e32f5f0b46fa1d11d5da99c", size = 491790, upload-time = "2025-04-23T12:13:20.525Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/7e/f51602040ec326be03ec27d4455bd42c9fba552020cb3562258461db9bb0/hopsworks-4.2.0.tar.gz", hash = "sha256:455389c12b3109b90d59f93bfdbf6e303cf616e4c3cc0a50cb5e7465fe4c9230", size = 491099, upload-time = "2025-04-03T11:51:21.823Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a3/a8/fd8bcc12cbe7d2293236c37aa24f1a8cf486368c23a9f5f7ef70c42ffc53/hopsworks-4.2.2-py3-none-any.whl", hash = "sha256:5cf9ca34cdde627fb95b9fb06491090a88a98a8a396931360999ba7cd5d9ce05", size = 661190, upload-time = "2025-04-23T12:13:18.475Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/3c/2e96855d4f8f4a7df4c1533918ca571b99b896b846870f1a386b39a0c389/hopsworks-4.2.0-py3-none-any.whl", hash = "sha256:99d72157282dac9fb03571a4948ae464ea90bfb1235dd1326acd49e45ef0f3a0", size = 660632, upload-time = "2025-04-03T11:51:19.977Z" },
 ]
 
 [package.optional-dependencies]
@@ -3025,7 +3025,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["standard"] },
-    { name = "hopsworks", extras = ["python"], specifier = "==4.2.2" },
+    { name = "hopsworks", extras = ["python"], specifier = "==4.2" },
     { name = "hsfs", specifier = ">=3.7.9" },
     { name = "hydra-core", specifier = ">=1.3.2" },
     { name = "omegaconf", specifier = ">=2.3.0" },

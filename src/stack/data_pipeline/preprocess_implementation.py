@@ -6,13 +6,9 @@ import numpy as np
 from sklearn.compose import make_column_transformer, make_column_selector
 import polars as pl
 
-def merge_dfs(X_train, X_test, y_train, y_test):
-    # Combine features and targets
-    X_full = pl.concat([X_train, X_test])
-    y_full = pl.concat([y_train, y_test])
-
+def merge_dfs(X, y):
     # Combine into single dataframe
-    full_processed_data = pl.concat([X_full, y_full], how="horizontal")
+    full_processed_data = pl.concat([X, y], how="horizontal")
     return full_processed_data
 
 def get_imputers(config: DictConfig):

@@ -1,6 +1,8 @@
 path:
   raw: data/raw/raw.csv
   processed: data/processed/processed.csv
+  processed_train: data/processed/train.csv
+  processed_test: data/processed/test.csv
 
 features:
   to_keep:

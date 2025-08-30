@@ -1,9 +1,11 @@
 test_size: 0.3
 random_state: 42
 feature_store:
-    name: training_feature_group
+    train_fg: training_feature_group
+    test_fg: testing_feature_group
     version: 1
-    primary_key: ["id"]
+    primary_key:
+    - "id"
     description: "Employee Stress Level Data"
     feature_descriptions:
     - name: id
