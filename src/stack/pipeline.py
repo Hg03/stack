@@ -1,7 +1,6 @@
 from stack.configurations.config_validation import MainConfig
 from stack.utils.hopsworks_implementation import get_fs
 from stack.data_pipeline.etl import DataPipeline
-from stack.training_pipeline.trainer import TrainingPipeline
 from omegaconf import OmegaConf, DictConfig
 import hydra
 
