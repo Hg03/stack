@@ -1,21 +1,23 @@
 from stack.configurations.config_validation import MainConfig
 from stack.utils.hopsworks_implementation import get_fs
 from stack.data_pipeline.etl import DataPipeline
+from stack.training_pipeline.trainer import TrainingPipeline
 from omegaconf import OmegaConf, DictConfig
 import hydra
 
 class StackPipeline:
     def __init__(self, config: DictConfig) -> None:
         self.config = OmegaConf.structured(MainConfig(**config))
-        self.fs = None #get_fs()
+        self.fs = None if self.config.pipeline.local else get_fs()
         self.data_pipeline = DataPipeline(self.config, self.fs)
+        self.training_pipeline = TrainingPipeline(self.config, self.fs)
     def execute(self):
         if self.config.pipeline.type == "data":
             print("Starting the data pipeline...")
             data_pipeline_status = self.data_pipeline.run()
             return True
         elif self.config.pipeline.type == "train":
-            pass
+            training_pipeline_status = self.training_pipeline.run()
         else:
             print("Starting the data pipeline...")
             data_pipeline_status = self.data_pipeline.run()

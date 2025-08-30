@@ -33,4 +33,5 @@ class MainConfig:
     model: ModelConfig
     evaluation: EvaluationConfig
     pipeline: str
+    local: bool
 
