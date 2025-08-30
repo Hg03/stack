@@ -1,5 +1,37 @@
 test_size: 0.3
 random_state: 42
+feature_store:
+    name: training_feature_group
+    version: 1
+    primary_key: ["id"]
+    description: "Employee Stress Level Data"
+    feature_descriptions:
+    - name: id
+      description: "Unique identifier for each employee"
+    - name: avg_working_hours_per_day
+      description: "Average working hours per day"
+    - name: work_from
+      description: "Work from home or office"
+    - name: work_pressure
+      description: "Level of work pressure"
+    - name: manager_support
+      description: "Level of support from manager"
+    - name: sleeping_habit
+      description: "Quality of sleeping habit"
+    - name: exercise_habit
+      description: "Frequency of exercise habit"
+    - name: job_satisfaction
+      description: "Level of job satisfaction"
+    - name: work_life_balance
+      description: "Quality of work-life balance"
+    - name: social_person
+      description: "Whether the person is social or not"
+    - name: lives_with_family
+      description: "Whether the person lives with family or not"
+    - name: working_state
+      description: "State of employment"
+    - name: stress_level
+      description: "Level of stress"
 steps:
     impute:
         numeric_strategy: "mean"
