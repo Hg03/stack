@@ -15,13 +15,15 @@ class StackPipeline:
         if self.config.pipeline.type == "data":
             print("Starting the data pipeline...")
             data_pipeline_status = self.data_pipeline.run()
-            return True
+            return True if data_pipeline_status else False
         elif self.config.pipeline.type == "train":
             training_pipeline_status = self.training_pipeline.run()
+            return True if training_pipeline_status else False
         else:
             print("Starting the data pipeline...")
             data_pipeline_status = self.data_pipeline.run()
-        
+            training_pipeline_status = self.training_pipeline.run()
+            return True if data_pipeline_status and training_pipeline_status else False
 
 @hydra.main(config_path="../../conf", config_name="config", version_base=None)
 def main(cfg: DictConfig) -> None:

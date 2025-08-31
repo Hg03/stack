@@ -1,4 +1,28 @@
 path:
   preprocessor: models/preprocessor.joblib
-  models: models/models.joblib
+  models: models/
   mlruns: mlruns/
+
+passed_model: random_forest
+list_of_models:
+- random_forest
+- svc
+- knn
+
+models:
+  random_forest:
+    random_forest__n_estimators:
+    - 10
+    - 20
+    - 30
+    - 100
+  svc:
+    kernel:
+    - rbf
+    - linear
+    - sigmoid
+  knn:
+    n_neighbors:
+    - 5
+    - 8
+    - 10

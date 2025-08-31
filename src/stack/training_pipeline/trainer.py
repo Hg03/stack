@@ -1,5 +1,12 @@
 import polars as pl
 from omegaconf import DictConfig
+import joblib
+from stack.training_pipeline.training_implementation import get_model
+from sklearn.exceptions import DataConversionWarning
+import warnings
+import os
+warnings.filterwarnings("ignore", category=DataConversionWarning)
+
 
 class TrainingPipeline:
     def __init__(self, config: DictConfig, fs: any):
@@ -7,15 +14,17 @@ class TrainingPipeline:
         self.fs = fs
     
     def get_training_data_online(self):
+        print("Fetching Training data from Feature Store")
         try:
             self.training_fg = self.fs.get_feature_group(self.config.preprocessing.feature_store.train_fg, self.config.preprocessing.feature_store.version)
             self.testing_fg = self.fs.get_feature_group(self.config.preprocessing.feature_store.test_fg, self.config.preprocessing.feature_store.version)
-            self.training_data = self.training_fg.read()
-            self.testing_data = self.testing_fg.read()
+            self.training_data = pl.DataFrame(self.training_fg.read())
+            self.testing_data = pl.DataFrame(self.testing_fg.read())
         except:
             raise "Check at the hopsworks project, maybe feature groups are not present or could be a codebase error."
     
     def get_training_data_offline(self):
+        print("Fetching Training data from local")
         try:
             self.training_data = pl.read_csv(self.config.dataset.path.processed_train)
             self.testing_data = pl.read_csv(self.config.dataset.path.processed_test)
@@ -23,12 +32,24 @@ class TrainingPipeline:
             raise FileNotFoundError("Not able to found dataframe locally. probably you should run data pipeline first.")
     
     def train_model(self):
-        print("Training model will come here")
+        print("Training Model")
+        if self.config.model.passed_model in self.config.model.list_of_models:
+            self.X_train, self.y_train = self.training_data.select(pl.col(self.config.preprocessing.features.X)), self.training_data.select(self.config.preprocessing.features.y)
+            self.X_test, self.y_test = self.testing_data.select(pl.col(self.config.preprocessing.features.X)), self.testing_data.select(self.config.preprocessing.features.y)
+            preprocessor = joblib.load(self.config.model.path.preprocessor)
+            model = self.config.model.passed_model
+            hyperparams = self.config.model.models.get(self.config.model.passed_model)
+            self.estimator = get_model(preprocessor, model, hyperparams)
+            self.estimator.fit(self.X_train.to_pandas(), self.y_train.to_pandas())
+            joblib.dump(self.estimator, os.path.join(self.config.model.path.models, f"{model}.joblib"))
+        else:
+            raise KeyError("Please check model config and passed appropriate model name")
 
     def run(self):
         if self.fs:
             self.get_training_data_online()
         else:
-            self.get_training_data_offline
+            self.get_training_data_offline()
 
         self.train_model()
+        return True
