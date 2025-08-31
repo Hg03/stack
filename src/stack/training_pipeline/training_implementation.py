@@ -20,7 +20,7 @@ def get_metrics(model, x_train, x_test, y_train, y_test):
     test_pred = model.predict(x_test)
     return classification_report(y_test, test_pred, output_dict=True)
 
-def log_models_and_metrics(model, x_train, x_test, y_train, y_test):
+def log_models_and_metrics(config, model, x_train, x_test, y_train, y_test):
     dagshub.auth.add_app_token(token=os.getenv("DAGSHUB_USER_TOKEN"), url=os.getenv("DAGSHUB_URL"))
     dagshub.init(repo_owner='Hg03', repo_name='stack', mlflow=True)
     with mlflow.start_run():
@@ -30,3 +30,4 @@ def log_models_and_metrics(model, x_train, x_test, y_train, y_test):
         for class_or_avg, metrics_dict in cr.items():
             for metric, value in metrics_dict.items():
                 mlflow.log_metric(class_or_avg + '_' + metric,value)
+        mlflow.log_artifact(local_path=config.model.path.models)

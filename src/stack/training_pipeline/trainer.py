@@ -48,7 +48,7 @@ class TrainingPipeline:
     
     def log_to_mlflow(self):
         print("Logging Model and Metrics")
-        log_models_and_metrics(model=self.best_estimator, x_train=self.X_train, x_test=self.X_test, y_train=self.y_train, y_test=self.y_test)
+        log_models_and_metrics(config=self.config, model=self.best_estimator, x_train=self.X_train, x_test=self.X_test, y_train=self.y_train, y_test=self.y_test)
 
     def run(self):
         if self.fs:
