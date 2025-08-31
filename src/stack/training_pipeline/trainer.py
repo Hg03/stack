@@ -1,7 +1,7 @@
 import polars as pl
 from omegaconf import DictConfig
 import joblib
-from stack.training_pipeline.training_implementation import get_model
+from stack.training_pipeline.training_implementation import get_model, log_models_and_metrics
 from sklearn.exceptions import DataConversionWarning
 import warnings
 import os
@@ -41,15 +41,20 @@ class TrainingPipeline:
             hyperparams = self.config.model.models.get(self.config.model.passed_model)
             self.estimator = get_model(preprocessor, model, hyperparams)
             self.estimator.fit(self.X_train.to_pandas(), self.y_train.to_pandas())
-            joblib.dump(self.estimator, os.path.join(self.config.model.path.models, f"{model}.joblib"))
+            self.best_estimator = self.estimator.best_estimator_
+            joblib.dump(self.best_estimator, os.path.join(self.config.model.path.models, f"{model}.joblib"))
         else:
             raise KeyError("Please check model config and passed appropriate model name")
+    
+    def log_to_mlflow(self):
+        print("Logging Model and Metrics")
+        log_models_and_metrics(model=self.best_estimator, x_train=self.X_train, x_test=self.X_test, y_train=self.y_train, y_test=self.y_test)
 
     def run(self):
         if self.fs:
             self.get_training_data_online()
         else:
             self.get_training_data_offline()
-
         self.train_model()
+        self.log_to_mlflow()
         return True
