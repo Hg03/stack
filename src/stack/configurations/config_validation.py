@@ -27,11 +27,15 @@ class EvaluationConfig:
     metrics: dict[str, List[str]]
 
 @dataclass
+class PipelineConfig:
+    type: str
+    local: bool
+
+@dataclass
 class MainConfig:
     dataset: DatasetConfig
     preprocessing: PreprocessingConfig
     model: ModelConfig
     evaluation: EvaluationConfig
-    pipeline: str
-    local: bool
+    pipeline: PipelineConfig
 
