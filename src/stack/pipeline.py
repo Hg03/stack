@@ -17,11 +17,13 @@ class StackPipeline:
             data_pipeline_status = self.data_pipeline.run()
             return True if data_pipeline_status else False
         elif self.config.pipeline.type == "train":
+            print("Starting the training pipeline...")
             training_pipeline_status = self.training_pipeline.run()
             return True if training_pipeline_status else False
         else:
             print("Starting the data pipeline...")
             data_pipeline_status = self.data_pipeline.run()
+            print("Starting the training pipeline...")
             training_pipeline_status = self.training_pipeline.run()
             return True if data_pipeline_status and training_pipeline_status else False
 

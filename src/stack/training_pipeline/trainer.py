@@ -33,6 +33,7 @@ class TrainingPipeline:
     
     def train_model(self):
         print("Training Model")
+        print(f"Selected model to train: {self.config.model.passed_model}")
         if self.config.model.passed_model in self.config.model.list_of_models:
             self.X_train, self.y_train = self.training_data.select(pl.col(self.config.preprocessing.features.X)), self.training_data.select(self.config.preprocessing.features.y)
             self.X_test, self.y_test = self.testing_data.select(pl.col(self.config.preprocessing.features.X)), self.testing_data.select(self.config.preprocessing.features.y)

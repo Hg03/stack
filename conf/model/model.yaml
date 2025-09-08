@@ -17,12 +17,12 @@ models:
     - 30
     - 100
   svc:
-    kernel:
+    svc__kernel:
     - rbf
     - linear
     - sigmoid
   knn:
-    n_neighbors:
+    knn__n_neighbors:
     - 5
     - 8
     - 10
