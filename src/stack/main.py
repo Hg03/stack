@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from typing import Optional, Any
 from stack.inference_pipeline.infer import Infer
+from stack.inference_pipeline.infer_implementations import EmployeeData
+from pydantic import Field
 from pydantic import BaseModel
 import uvicorn
 
@@ -11,11 +13,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
 # Define request model
 class InferenceRequest(BaseModel):
-    input_data: Any # Adjust this type based on what your Infer class expects
-    # Add other parameters your inference pipeline might need
-    # model_params: Optional[dict] = None
+    input_data: EmployeeData = Field(..., description="Employee data for stress level prediction")
+
 
 # Define response model
 class InferenceResponse(BaseModel):
@@ -30,8 +32,15 @@ async def root():
 @app.post("/single", response_model=InferenceResponse)
 async def single_inference(request: InferenceRequest):
     inference_pipe = Infer()
-    
-    return InferenceResponse(result="yeah", status="success", message="success")
+    # Access the employee data
+    employee_data = request.input_data
+    # Run inference (when you implement it)
+    result = inference_pipe.make_inference(payload=employee_data, infer_type="single")
+    return InferenceResponse(
+        result=result, 
+        status="success", 
+        message="Inference completed successfully"
+    )
 
 if __name__ == "__main__":
     uvicorn.run(app=app, reload=True)
