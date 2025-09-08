@@ -25,4 +25,5 @@ RUN uv sync --no-dev
 EXPOSE 8000
 
 # Run FastAPI with uvicorn
-CMD ["fastapi", "dev", "src/stack/main.py", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["fastapi", "dev", "src/stack/main.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/bin/bash"]
