@@ -8,3 +8,4 @@ Learn about the projects progressively through tags.
 |[Initial Directory Setup](https://github.com/Hg03/stack/tree/initial_directory)|
 |[Configurations Management](https://github.com/Hg03/stack/tree/initial_configuration_management)|
 |[Data Pipeline](https://github.com/Hg03/stack/tree/data_pipeline)|
+|[Training Pipeline](https://github.com/Hg03/stack/tree/training_pipeline)|
