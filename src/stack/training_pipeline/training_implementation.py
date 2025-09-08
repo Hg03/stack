@@ -30,4 +30,4 @@ def log_models_and_metrics(config, model, x_train, x_test, y_train, y_test):
         for class_or_avg, metrics_dict in cr.items():
             for metric, value in metrics_dict.items():
                 mlflow.log_metric(class_or_avg + '_' + metric,value)
-        mlflow.log_artifact(local_path=config.model.path.models)
+        mlflow.sklearn.log_model(sk_model=model, artifact_path=os.path.join(config.model.path.models, f"{config.model.passed_model}.joblib"))

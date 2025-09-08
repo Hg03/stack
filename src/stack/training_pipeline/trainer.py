@@ -43,7 +43,7 @@ class TrainingPipeline:
             self.estimator = get_model(preprocessor, model, hyperparams)
             self.estimator.fit(self.X_train.to_pandas(), self.y_train.to_pandas())
             self.best_estimator = self.estimator.best_estimator_
-            joblib.dump(self.best_estimator, os.path.join(self.config.model.path.models, f"{model}.joblib"))
+            # joblib.dump(self.best_estimator, os.path.join(self.config.model.path.models, f"{model}.joblib"))
         else:
             raise KeyError("Please check model config and passed appropriate model name")
     

@@ -34,4 +34,4 @@ async def single_inference(request: InferenceRequest):
     return InferenceResponse(result="yeah", status="success", message="success")
 
 if __name__ == "__main__":
-    uvicorn.run(app=app)
+    uvicorn.run(app=app, reload=True)

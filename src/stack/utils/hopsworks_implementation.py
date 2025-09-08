@@ -1,11 +1,12 @@
 from omegaconf import DictConfig
-import hopsworks
+import hsfs
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
 def get_fs():
-    project = hopsworks.login(api_key_value=os.getenv("HOPSWORKS_API_KEY"))
+    project = hsfs.get_connection(api_key_value=os.getenv("HOPSWORKS_API_KEY"))
+    # project = hopsworks.login(api_key_value=os.getenv("HOPSWORKS_API_KEY")) # If hopsworks.login didn't work, use hsfs.
     return project.get_feature_store()
 
 def get_fg(fs, config: DictConfig):
