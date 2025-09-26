@@ -28,7 +28,6 @@ class EmployeeData(BaseModel):
     social_person: int = Field(..., ge=1, le=5, description="Social personality level (1-5 scale)")
     lives_with_family: YesNoOptions = Field(..., description="Whether lives with family")
     working_state: str = Field(..., description="State/region where working")
-    # stress_level: Optional[int] = Field(..., ge=1, le=5, description="Stress level (1-5 scale)")
 
     class Config:
         use_enum_values = True  # This allows accepting string values that match enum values
@@ -47,6 +46,5 @@ class EmployeeData(BaseModel):
                 "social_person": 5,
                 "lives_with_family": "Yes",
                 "working_state": "Karnataka",
-                # "stress_level": 3
             }
         }
