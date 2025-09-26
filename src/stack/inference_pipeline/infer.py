@@ -10,9 +10,14 @@ class Infer:
         self.model_artifact_path = 'runs:/69ecb7a277ec466cb824e64ff3d9ebf3/models/svc.joblib'
         self.loaded_model = mlflow.sklearn.load_model(model_uri = self.model_artifact_path)
 
+    def validate_df(self, df: pd.DataFrame) -> pd.DataFrame:
+        self.validated_payload = df
+        return self.validated_payload
     def make_inference(self, payload: Optional[EmployeeData], infer_type: str):
         if infer_type == "single":
             return self.loaded_model.predict(pd.DataFrame([payload]))[0]
         else:
+            print(payload.head())
             validated_payload = self.validate_df(payload)
+            print(self.loaded_model)
             return self.loaded_model.predict(validated_payload)
